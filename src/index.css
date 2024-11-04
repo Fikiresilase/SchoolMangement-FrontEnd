@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+ :root {
+  @apply font-poppins text-foreground;
+ }
+}
+@layer base {
+  h1 {
+    @apply text-4xl font-bold leading-tight;
+  }
+  h2 {
+    @apply text-3xl font-semibold leading-snug;
+  }
+  h3 {
+    @apply text-2xl font-medium leading-normal;
+  }
+}
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+  }
+  .my-element {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: black;
+}
+
+.my-element::-webkit-scrollbar {
+    width: 12px;
+    scrollbar-color: black;
+   
+}
+
+.my-element::-webkit-scrollbar-track {
+  background: black;
+  border-radius: 10px;
+}
+
+.my-element::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 3px solid black;
+}
+
+.my-element::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
