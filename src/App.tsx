@@ -2,7 +2,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AppLayout from './components/AppLayout.tsx/AppLayout'
 import StudentsMark from './components/Teacher/StudentsMark'
-import StudentFilter from './contexts/studentFilter/studentFilter'
+import StudentFilter from './hooks/studentFilter'
 import useStudentFilter from './hooks/useStudentFilter'
 
 
@@ -15,6 +15,10 @@ import Registrar from './pages/Registrar'
 import RegisterStudents from './components/Registrar/RegisterStudents'
 import RegisterTeachers from './components/Registrar/RegisterTeachers'
 import AssignTeachers from './components/Registrar/AssignTeachers'
+import Dashboard from './components/Teacher/Dashboard'
+import AdminDashboard from './components/Admin/AdminDashBoard'
+import AdminPage from './pages/AdminPage'
+
 
 function App() {
   const { students, selected, setSelected, grades, sections, courses, error } = useStudentFilter() 
@@ -27,15 +31,26 @@ function App() {
       <BrowserRouter>
         <Routes>
               <Route path='/' element={<AppLayout />} >
-              <Route path='/teacher-page' element={<TeacherPage />} >
+                <Route path='/teacher-page' element={<TeacherPage />} >
+                  <Route path='/teacher-page' element={<Dashboard />} />
                   <Route path='students-mark' element={<StudentsMark />} />
                   <Route path='contact-parent' element={<ContactParents />} />
                   <Route path='teacher-profile' element={<TeacherProfile />} />
                 </Route>
+
                 <Route path='/registrar-page' element={<Registrar />} >
+                  <Route path='/registrar-page' element={<AdminDashboard />} ></Route>
                   <Route path='register-students' element={<RegisterStudents />} />
                   <Route path='register-teachers' element={<RegisterTeachers />} />
                   <Route path='assign-teachers' element={<AssignTeachers />} />
+
+                </Route>
+                
+                
+                <Route path='/admin-page' element={<AdminPage />} >
+                  <Route path='/admin-page' element={<AdminDashboard />} ></Route>
+                  <Route path='admin' element={<RegisterStudents />} />
+                  
 
               </Route>
                 

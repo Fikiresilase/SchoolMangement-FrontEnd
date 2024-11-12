@@ -1,6 +1,6 @@
 import { ReactElement, useContext } from 'react'
 import Filter from '../Common/Filter'
-import StudentFilter from '../../contexts/studentFilter/studentFilter'
+import StudentFilter from '../../hooks/studentFilter'
 
 interface Selected {
     grade: number | null,
@@ -30,25 +30,24 @@ const StudentTable = ({ title,header,children }: Props) => {
           <Filter defaultOption={'Course'} data={courses} setSelected={(s) => setSelected({ ...selected, course: s } as Selected)} />
         </div>
       
-  
-        <table className="table table-striped table-bordered ">
+        <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table className="w-full table-auto border border-gray-300 rounded-lg">
           <thead>
-            <tr className="p-2 text-center">
-              {header.map((h, index) =>
-                <th key={index} className="p-2 text-center">{h}</th>)
-              }
+            <tr className="bg-gray-100">
+              {header.map((h, index) => (
+                <th key={index} className="py-3 px-4 text-sm font-semibold text-gray-600 border-b">
+                  {h}
+                </th>
+              ))}
             </tr>
           </thead>
-          <tbody>
-            
+          <tbody className="divide-y divide-gray-200">
             {children}
-              
           </tbody>
-       
         </table>
       </div>
-    )
-  }
+    </div>
+  );
+};
 
-
-export default StudentTable
+export default StudentTable;

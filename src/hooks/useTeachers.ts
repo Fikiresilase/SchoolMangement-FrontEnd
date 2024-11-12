@@ -20,17 +20,24 @@ export interface Teacher {
 
 
   }
-const useTeacher = (endpoint: string) => {
-  const [teacher, setTeacher] = useState()
+const useTeacher = (endpoint?: string) => {
+  const [teacher, setTeacher] = useState<Teacher[]>()
   const [teacherCourseData, setTeacherCourseData] = useState<Grade[]>([])
   const [teacherGradeData, setTeacherGradeData] = useState<Grade[]>([])
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const { requestTeacher } = TeacherService.getTeachers(endpoint) 
-    requestTeacher.then(res => { setTeacherCourseData(res.data.grade); setTeacherGradeData(res.data.grade)})
-      .catch(err => setError(err.message))
-    
+    if (endpoint) {
+      const { requestTeacher } = TeacherService.getTeacher(endpoint as string)
+      requestTeacher.then(res => { setTeacherCourseData(res.data.grade); setTeacherGradeData(res.data.grade) })
+        .catch(err => setError(err.message))
+    }
+    else {
+      const { request } = TeacherService.getAll<Teacher[]>()
+      request.then(res => setTeacher(res.data) )
+        .catch(err => setError(err.message))
+
+    }
     
   },[])
   

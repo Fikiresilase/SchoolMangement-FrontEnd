@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import ContactModal from "../Common/ContactModal";
 import StudentTable from "./StudentTable";
-import StudentFilter from "../../contexts/studentFilter/studentFilter";
+import StudentFilter from "../../hooks/studentFilter";
 const ContactParents = () => {
   const [visible,setVisible] = useState<boolean>(false)
   const { students} = useContext(StudentFilter)

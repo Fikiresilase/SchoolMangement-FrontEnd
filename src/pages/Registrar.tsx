@@ -4,7 +4,8 @@ import RouterContext from "../contexts/routerContext/routerContexts"
 import { Outlet } from "react-router-dom"
 
 const Registrar = () => {
-    const arr = [
+  const arr = [
+      <SideBarNav label="Dashboard" linkTo="/registrar-page" />,
       <SideBarNav label="Register Students" linkTo="/registrar-page/register-students" />,
       <SideBarNav label="Register Teachers" linkTo="/registrar-page/register-teachers" />,
       <SideBarNav label="Assign Teachers" linkTo="/registrar-page/assign-teachers" />,

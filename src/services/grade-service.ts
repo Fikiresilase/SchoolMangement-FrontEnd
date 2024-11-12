@@ -3,7 +3,8 @@ export interface Grade {
     _id: string
     label: string
     section: string[]
-    course:string[]
+    course: string[]
+   
 }
 
 class GradeService extends HttpServices {

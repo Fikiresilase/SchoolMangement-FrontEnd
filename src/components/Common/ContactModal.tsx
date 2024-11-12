@@ -1,20 +1,37 @@
 interface Props {
-    visible: boolean
-    handleClick:()=>void
+  visible: boolean;
+  handleClick: () => void;
 }
 
-const ContactModal = ({ visible,handleClick }:Props) => {
-    
-    return (
-        <div className={`${visible ? 'absolute w-[300px] min-h-[200px] bg-slate-100 z-10  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-60%]  rounded-lg shadow-md' : 'hidden'}`}>
-            <h3 className='text-center p-3 after:w-[90%] after:h-[1px] after:relative after:bottom-0 after:mx-auto  after:block after:contain-" " after:bg-slate-500'>Contact Parent</h3>
-            <textarea rows={4} placeholder='write your essage here' className='text-start relative w-[90%]  border left-[50%] translate-x-[-50%] bg-slate-200 shadow-lg ' />
-            <div className='flex justify-center gap-4 px-4'>
-            <input type='submit' value='Cancel' onClick={handleClick} className='btn-primary relative w-[70px] top-full p-2 text-center text-white bg-[red] rounded-md ' />
-            <input type='submit'  value='Send'  onClick={handleClick} className='relative w-[70px] top-full p-2 text-center text-white bg-slate-400 rounded-lg ' />
+const ContactModal = ({ visible, handleClick }: Props) => {
+  return (
+      <div className={`${visible ? 'fixed inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50' : 'hidden'}`}>
+          <div className="w-[300px] min-h-[250px] bg-white rounded-lg shadow-lg">
+              <h3 className="text-center text-xl font-semibold p-4 border-b border-gray-200">Contact Parent</h3>
+              
+              <textarea
+                  rows={4}
+                  placeholder="Write your message here"
+                  className="block w-[90%] mx-auto mt-4 p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-slate-400 bg-slate-100"
+              />
+
+              <div className="flex justify-between p-4 mt-4">
+                  <button
+                      onClick={handleClick}
+                      className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none"
+                  >
+                      Cancel
+                  </button>
+                  <button
+                      onClick={handleClick}
+                      className="px-4 py-2 text-white bg-slate-500 rounded-md hover:bg-slate-600 focus:outline-none"
+                  >
+                      Send
+                  </button>
+              </div>
+          </div>
       </div>
-    </div>
-  )
+  );
 }
 
-export default ContactModal
+export default ContactModal;

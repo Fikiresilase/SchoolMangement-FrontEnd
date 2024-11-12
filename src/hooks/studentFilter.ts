@@ -1,5 +1,5 @@
 import { createContext, Dispatch } from "react"
-import { Student } from "../../services/student-service"
+import { Student } from "../services/student-service"
 
 interface Selected {
     grade: number | null

@@ -14,16 +14,18 @@ export interface Grade {
 export interface Teacher {
       id:number
       name:string
+      email:string
       grade:Grade[]
+      
   
     }
 class TeacherService  extends HttpServices {
     constructor() {
         super('/teacher')
     }
-    getTeachers (endpoint:string) {
+    getTeacher (id:string) {
         const controller = new AbortController ()
-        const requestTeacher = apiClient.get<Teacher>(endpoint)
+        const requestTeacher = apiClient.get<Teacher>('/teacher',{params:id})
         
         return {requestTeacher,cancel:()=>controller.abort()}
     }

@@ -1,19 +1,18 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-import axios from 'axios';
+import {  Grade } from '../../services/student-service';
+import registrationServices from '../../services/registration-services';
+import { Student } from '../../services/student-service';
 
-interface FormData {
-  name: string;
-  email: string;
-  section: string;
-  password: string;
-}
+
 
 const RegisterStudents = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<Student>({
     name: '',
+    grade:{} as Grade,
     email: '',
     section: '',
     password: '',
+    course:[]
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,50 +25,76 @@ const RegisterStudents = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    await axios.post('http://localhost:3000/api/register/student', formData);
+    registrationServices.registerStudent(formData as Student)
     console.log(formData);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full p-4 flex flex-col gap-2">
-      <h2>Student Info</h2>
-      <div className="w-full flex gap-2">
-        <input
-          name="name"
-          onChange={handleChange}
-          className="border-[2px] border-slate-300 p-2"
-          type="text"
-          placeholder="Student Name"
-        />
-      </div>
-      <input
-        name="email"
-        onChange={handleChange}
-        className="border-[2px] border-slate-300 p-2"
-        type="email"
-        placeholder="example@gmail.com"
-      />
-      <input
-        name="section"
-        onChange={handleChange}
-        className="border-[2px] border-slate-300 p-2"
-        type="text"
-        placeholder="Section"
-      />
-      <input
-        name="password"
-        onChange={handleChange}
-        className="border-[2px] border-slate-300 p-2"
-        type="password"
-        placeholder="Password"
-      />
-      
-      <input
-        type="submit"
-        value="Submit"
-        className="relative w-[70px] p-2 text-center text-white bg-slate-600 rounded-md hover:bg-slate-900 "
-      />
-    </form>
+    <div className="w-full h-full flex justify-center items-center p-8 bg-gray-100">
+      <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md space-y-4">
+        <h2 className="text-2xl font-semibold text-gray-700 text-center mb-4">Register Student</h2>
+        
+  
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-1" htmlFor="name">Student Name</label>
+          <input
+            id="name"
+            name="name"
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            type="text"
+            placeholder="Enter student name"
+          />
+        </div>
+
+     
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-1" htmlFor="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            type="email"
+            placeholder="example@gmail.com"
+          />
+        </div>
+
+
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-1" htmlFor="section">Section</label>
+          <input
+            id="section"
+            name="section"
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            type="text"
+            placeholder="Section"
+          />
+        </div>
+
+       
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-1" htmlFor="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            type="password"
+            placeholder="Password"
+          />
+        </div>
+
+     
+        <button
+          type="submit"
+          className="w-full py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition duration-200 ease-in-out"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   );
 };
 

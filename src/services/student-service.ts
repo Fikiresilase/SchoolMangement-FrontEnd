@@ -15,8 +15,10 @@ export interface Parent {
     phone:string
 }
 export interface Student {
-    _id:string;
-    name:string;
+    _id?:string
+    name: string
+    email: string
+    password:string
     grade:Grade;
     section: string
     course: Course[]
