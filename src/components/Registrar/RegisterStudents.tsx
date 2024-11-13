@@ -59,7 +59,17 @@ const RegisterStudents = () => {
             placeholder="example@gmail.com"
           />
         </div>
-
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-1" htmlFor="section">Grade</label>
+          <input
+            id="sectgradeion"
+            name="Grade"
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            type="text"
+            placeholder="Section"
+          />
+        </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-600 mb-1" htmlFor="section">Section</label>

@@ -1,7 +1,7 @@
 import {HttpServices} from './http-services'
 export interface Grade {
     _id: string
-    label: string
+    label: number
     section: string[]
     course: string[]
    

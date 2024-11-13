@@ -23,7 +23,8 @@ const useStudents = (endpoint?:string) => {
     
 
     
-  },[])
+  }, [])
+
 
   return {students,setStudents,error}
 }

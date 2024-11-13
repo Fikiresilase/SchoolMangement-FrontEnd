@@ -15,7 +15,7 @@ export interface Grade {
 export interface Teacher {
     id:number
     name:string
-    grade:Grade
+    grade:Grade[]
     course:string
 
 

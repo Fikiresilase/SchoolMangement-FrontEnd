@@ -4,11 +4,15 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Grade } from "../../services/grade-service";
 import teacherService from "../../services/teacher-service";
 
-const AssignTeachers = () => {
-    const [selections, setSelections] = useState<{ grade: string; section: string[] }[]>([]);
-    const [teacher, setTeacher] = useState('');
-    const searchInput = useRef<HTMLInputElement>(null);
+interface Selection {
+    grade: number;
+    section: string[];
+}
 
+const AssignTeachers: React.FC = () => {
+    const [selections, setSelections] = useState<Selection[]>([]);
+    const [teacher, setTeacher] = useState<string>('');
+    const searchInput = useRef<HTMLInputElement>(null);
     const grades = useGrade();
 
     function handleChange(e: ChangeEvent<HTMLInputElement>, g: Grade) {
@@ -16,7 +20,7 @@ const AssignTeachers = () => {
         const isChecked = e.currentTarget.checked;
 
         setSelections((prevSelections) => {
-            const gradeSelection = prevSelections.find((s) => s.grade === g.label);
+            const gradeSelection = prevSelections.find((s) => s.grade === (g.label));
             if (gradeSelection) {
                 const updatedSections = isChecked
                     ? [...gradeSelection.section, selectedSection]
@@ -33,15 +37,19 @@ const AssignTeachers = () => {
         });
     }
 
-    function search() {
+    async function search() {
         if (searchInput.current) {
-            teacherService.getTeacher(searchInput.current.value).requestTeacher
-                .then((res) => setTeacher(res.data.name));
+            try {
+                const res = await teacherService.getTeacher(searchInput.current.value).requestTeacher;
+                setTeacher(res.data.name);
+            } catch (error) {
+                console.error("Error fetching teacher:", error);
+            }
         }
     }
 
-    function handleSubmit() {
-       
+    function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
     }
 
     return (
@@ -94,8 +102,8 @@ const AssignTeachers = () => {
                 <div className="w-full lg:w-[35%] bg-white rounded-lg p-6 shadow-md">
                     <h3 className="text-lg font-semibold text-gray-800 mb-4">Assigned Grades & Sections</h3>
                     {selections.map((selection, index) => (
-                        <div key={index} className={ `${selection.section.length >0 ?  ' flex flex-col gap-2 p-3 border border-gray-300 rounded-lg mb-3 bg-gray-50' : 'hidden' } `}>
-                            <span className="font-medium text-blue-700">Grade { selection.grade}</span>
+                        <div key={index} className={`${selection.section.length > 0 ? 'flex flex-col gap-2 p-3 border border-gray-300 rounded-lg mb-3 bg-gray-50' : 'hidden'}`}>
+                            <span className="font-medium text-blue-700">Grade {selection.grade}</span>
                             <div className="flex flex-wrap gap-2">
                                 {selection.section.map((s, i) => (
                                     <span key={i} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">

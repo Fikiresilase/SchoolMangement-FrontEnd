@@ -24,8 +24,8 @@ class HttpServices {
         return request
         
     }
-    delete<T extends Entity>(entity: T) {
-        const request = apiClient.delete<T>(this.endpoint + entity.id)
+    delete<T>(id:T) {
+        const request = apiClient.delete<T>(this.endpoint + id)
         return request
     
     }

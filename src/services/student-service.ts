@@ -3,7 +3,7 @@ import { HttpServices } from "./http-services";
 
 export interface Grade {
     id: string
-    name:string
+    name:number
 }
 export interface Course {
     name: string
@@ -26,7 +26,7 @@ export interface Student {
 
 class StudentService extends HttpServices {
     constructor() {
-        super('/student')
+        super('/student/')
     }
 
     getTeacherStudent (endpoint:string,grade?:any,section?:any,course?:any) {
