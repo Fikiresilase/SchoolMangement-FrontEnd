@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import  TeacherService from "../services/teacher-service";
-
+import { Teacher } from "../services/teacher-service";
 
 export interface Course {
   name:string,
@@ -12,16 +12,9 @@ export interface Grade {
   course:Course[]
 
 }
-export interface Teacher {
-    id:number
-    name:string
-    grade:Grade[]
-    course:string
 
-
-  }
 const useTeacher = (endpoint?: string) => {
-  const [teacher, setTeacher] = useState<Teacher[]>()
+  const [teacher, setTeacher] = useState<Teacher[]>([])
   const [teacherCourseData, setTeacherCourseData] = useState<Grade[]>([])
   const [teacherGradeData, setTeacherGradeData] = useState<Grade[]>([])
   const [error, setError] = useState("");

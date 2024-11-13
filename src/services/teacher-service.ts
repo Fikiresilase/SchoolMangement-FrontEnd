@@ -12,7 +12,7 @@ export interface Grade {
  
 }
 export interface Teacher {
-      id:number
+      _id:string
       name:string
       email:string
       grade:Grade[]
@@ -21,7 +21,7 @@ export interface Teacher {
     }
 class TeacherService  extends HttpServices {
     constructor() {
-        super('/teacher')
+        super('/teacher/')
     }
     getTeacher (id:string) {
         const controller = new AbortController ()

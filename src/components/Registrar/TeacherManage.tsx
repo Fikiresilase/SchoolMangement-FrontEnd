@@ -1,35 +1,35 @@
 import { useState, useEffect } from 'react';
 import ConfirmationModal from '../Common/ConfiramationModal';
-import useStudents from '../../hooks/useStudents';
-import StudentService, { Student } from '../../services/student-service';
+import useTeachers from '../../hooks/useTeachers';
+import TeacherService, { Teacher } from '../../services/teacher-service'
 
-const StudentManage = () => {
-  const { students, setStudents } = useStudents();
+const TeacherManage = () => {
+  const { teacher, setTeacher } = useTeachers();
   
-  const [editedStudents, setEditedStudents] = useState<Student[]>(students);
+  const [editedTeachers, setEditedTeachers] = useState<Teacher[]>(teacher);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedAction, setSelectedAction] = useState<'delete' | 'update' | null>(null);
-  const [selectedStudent, setSelectedStudent] = useState<{ id: string } | null>(null);
+  const [selectedTeacher, setSelectedTeacher] = useState<{ id: string } | null>(null);
 
   useEffect(() => {
-    setEditedStudents(students);
-  }, [students]);
+    setEditedTeachers(teacher);
+  }, [teacher]);
 
   const handleEdit = (id: string, field: string, value: string) => {
-    setEditedStudents((prevStudents) =>
-      prevStudents.map((student) =>
-        student._id === id ? { ...student, [field]: value } : student
+    setEditedTeachers((prevTeachers) =>
+      prevTeachers.map((teacher) =>
+        teacher._id === id ? { ...teacher, [field]: value } : teacher
       )
     );
   };
 
   const handleUpdate = (id: string) => {
-    const updatedStudent = editedStudents.find((student) => student._id === id);
-    if (updatedStudent) {
-      setStudents((prevStudents) =>
-        prevStudents.map((student) =>
-          student._id === id ? updatedStudent : student
+    const updatedteacher = editedTeachers.find((teacher) => teacher._id === id);
+    if (updatedteacher) {
+      setTeacher((prevTeachers) =>
+        prevTeachers.map((teacher) =>
+          teacher._id === id ? updatedteacher : teacher
         )
       );
       setShowModal(false);
@@ -37,30 +37,30 @@ const StudentManage = () => {
   };
 
   const handleDelete = (id: string) => {
-    //deletes students to be refact later
-     StudentService.delete(id ) 
+    //deletes Teachers to be refact later
+     TeacherService.delete(id) 
    
-    setStudents((prevStudents) =>
-      prevStudents.filter((student) => student._id !== id)
+    setTeacher((prevTeachers) =>
+      prevTeachers.filter((teacher) => teacher._id !== id)
     );
-    setEditedStudents((prevStudents) =>
-      prevStudents.filter((student) => student._id !== id)
+    setEditedTeachers((prevTeachers) =>
+      prevTeachers.filter((teacher) => teacher._id !== id)
     );
     setShowModal(false); 
   };
 
   const openModal = (id: string, actionType: 'delete' | 'update') => {
-    setSelectedStudent({ id });
+    setSelectedTeacher({ id });
     setSelectedAction(actionType);
     setShowModal(true);
   };
 
   return (
     <div className="min-h-screen p-8 bg-gray-100">
-      <h1 className="text-3xl font-semibold mb-6">Manage Students</h1>
+      <h1 className="text-3xl font-semibold mb-6">Manage Teachers</h1>
 
       <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Student List</h2>
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">teacher List</h2>
 
         <table className="min-w-full bg-white border border-gray-200 shadow-md">
           <thead>
@@ -71,9 +71,9 @@ const StudentManage = () => {
             </tr>
           </thead>
           <tbody>
-            {editedStudents.map((student, index) => (
+            {editedTeachers.map((teacher, index) => (
               <tr
-                key={student._id}
+                key={teacher._id}
                 className={`${
                   index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
                 } hover:bg-blue-100 border-b border-gray-200`}
@@ -81,32 +81,24 @@ const StudentManage = () => {
                 <td className="px-4 py-2">
                   <input
                     type="text"
-                    value={student.name}
+                    value={teacher.name}
                     onChange={(e) =>
-                      handleEdit(student._id as string, 'name', e.target.value)
+                      handleEdit(teacher._id as string, 'name', e.target.value)
                     }
                     className="w-full bg-transparent border-0 focus:outline-none"
                   />
                 </td>
                 <td className="px-4 py-2">
-                  <input
-                    type="text"
-                    value={student?.grade?.name}
-                    onChange={(e) =>
-                      handleEdit(student._id as string, 'grade', e.target.value)
-                    }
-                    className="w-full bg-transparent border-0 focus:outline-none"
-                  />
                 </td>
                 <td className="px-4 py-2 flex space-x-2">
                   <button
-                    onClick={() => openModal(student._id as string, 'update')}
+                    onClick={() => openModal(teacher._id as string, 'update')}
                     className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                   >
                     Update
                   </button>
                   <button
-                    onClick={() => openModal(student._id as string, 'delete')}
+                    onClick={() => openModal(teacher._id as string, 'delete')}
                     className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                   >
                     Delete
@@ -118,20 +110,20 @@ const StudentManage = () => {
         </table>
       </div>
 
-      {showModal && selectedStudent && selectedAction && (
+      {showModal && selectedTeacher && selectedAction && (
         <ConfirmationModal
           isOpen={showModal}
           onClose={() => setShowModal(false)}
           onConfirm={() =>
             selectedAction === 'delete'
-              ? handleDelete(selectedStudent.id)
-              : handleUpdate(selectedStudent.id)
+              ? handleDelete(selectedTeacher.id)
+              : handleUpdate(selectedTeacher.id)
           }
           actionType={selectedAction}
           message={
             selectedAction === 'delete'
-              ? 'Are you sure you want to delete this student?'
-              : 'Are you sure you want to update this student data?'
+              ? 'Are you sure you want to delete this teacher?'
+              : 'Are you sure you want to update this teacher data?'
           }
         />
       )}
@@ -139,4 +131,4 @@ const StudentManage = () => {
   );
 };
 
-export default StudentManage;
+export default TeacherManage;

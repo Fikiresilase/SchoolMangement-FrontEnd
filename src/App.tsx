@@ -19,6 +19,7 @@ import Dashboard from './components/Teacher/Dashboard'
 import AdminDashboard from './components/Admin/AdminDashBoard'
 import AdminPage from './pages/AdminPage'
 import StudentManage from './components/Registrar/StudentManage'
+import TeacherManage from './components/Registrar/TeacherManage'
 
 
 function App() {
@@ -45,7 +46,7 @@ function App() {
                   <Route path='register-teachers' element={<RegisterTeachers />} />
                   <Route path='assign-teachers' element={<AssignTeachers />} />
                   <Route path='manage-students' element={<StudentManage />} />
-                  <Route path='manage-teachers' element={<AssignTeachers />} />
+                  <Route path='manage-teachers' element={<TeacherManage />} />
                   
 
                   
