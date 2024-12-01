@@ -81,7 +81,7 @@ const RegisterStudents = () => {
         <div>
           <label className="block text-sm font-medium text-gray-600 mb-1" htmlFor="email">
             Email
-          </label> n
+          </label> 
           <input
             name="email"
             value={formData.email}
