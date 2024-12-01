@@ -1,4 +1,4 @@
-import Schedule from "../Common/Schedulet";
+import Schedule from "../Common/Schedule";
 const Dashboard = () => {
    
     

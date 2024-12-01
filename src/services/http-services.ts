@@ -1,6 +1,6 @@
 import apiClient from "./api-client"
 interface Entity {
-    id:string
+    _id:string
 }
 class HttpServices {
     endpoint: string
@@ -15,7 +15,7 @@ class HttpServices {
         return { request, cancel: () => controller.abort() }
     }
     updateOne<T extends Entity>(entity:T) {
-        const request = apiClient.put<T>(this.endpoint + '/' + entity.id,entity)
+        const request = apiClient.put<T>(this.endpoint + '/' + entity._id,entity)
         return request
        
     }

@@ -16,6 +16,7 @@ export interface Teacher {
       name:string
       email:string
       grade:Grade[]
+      password:string
       
   
     }
@@ -25,7 +26,8 @@ class TeacherService  extends HttpServices {
     }
     getTeacher (id:string) {
         const controller = new AbortController ()
-        const requestTeacher = apiClient.get<Teacher>('/teacher',{params:id})
+        const requestTeacher = apiClient.get<Teacher>(`/teacher/${id}`)
+        console.log(requestTeacher)
         
         return {requestTeacher,cancel:()=>controller.abort()}
     }

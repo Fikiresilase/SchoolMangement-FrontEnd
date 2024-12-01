@@ -2,7 +2,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AppLayout from './components/AppLayout.tsx/AppLayout'
 import StudentsMark from './components/Teacher/StudentsMark'
-import StudentFilter from './hooks/studentFilter'
+import StudentFilter from './contexts/studentFilter/studentFilter'
 import useStudentFilter from './hooks/useStudentFilter'
 
 
@@ -47,10 +47,6 @@ function App() {
                   <Route path='assign-teachers' element={<AssignTeachers />} />
                   <Route path='manage-students' element={<StudentManage />} />
                   <Route path='manage-teachers' element={<TeacherManage />} />
-                  
-
-                  
-
                 </Route>
                 
                 

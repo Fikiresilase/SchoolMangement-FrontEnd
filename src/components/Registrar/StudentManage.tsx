@@ -34,10 +34,13 @@ const StudentManage = () => {
       );
       setShowModal(false);
     }
+
+    StudentService.updateOne<Student>(updatedStudent as Student) 
+
   };
 
   const handleDelete = (id: string) => {
-    //deletes students to be refact later
+    //deletes students-- to be refact later
      StudentService.delete(id ) 
    
     setStudents((prevStudents) =>
@@ -67,6 +70,8 @@ const StudentManage = () => {
             <tr className="bg-gray-100">
               <th className="px-4 py-2 text-left">Name</th>
               <th className="px-4 py-2 text-left">Grade</th>
+              <th className="px-4 py-2 text-left">Section</th>
+              <th className="px-4 py-2 text-left">Email</th>
               <th className="px-4 py-2 text-left">Actions</th>
             </tr>
           </thead>
@@ -92,6 +97,26 @@ const StudentManage = () => {
                   <input
                     type="text"
                     value={student?.grade?.name}
+                    onChange={(e) =>
+                      handleEdit(student._id as string, 'grade', e.target.value)
+                    }
+                    className="w-full bg-transparent border-0 focus:outline-none"
+                  />
+                </td>
+                <td className="px-4 py-2">
+                  <input
+                    type="text"
+                    value={student?.section}
+                    onChange={(e) =>
+                      handleEdit(student._id as string, 'grade', e.target.value)
+                    }
+                    className="w-full bg-transparent border-0 focus:outline-none"
+                  />
+                </td>
+                <td className="px-4 py-2">
+                  <input
+                    type="text"
+                    value={student?.email}
                     onChange={(e) =>
                       handleEdit(student._id as string, 'grade', e.target.value)
                     }

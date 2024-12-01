@@ -9,16 +9,13 @@ const useSchedule = (teacherId?:string)=> {
     const scheduleServices= new ScheduleServices()
     const { request } = scheduleServices.getByTeacher(teacherId) 
     request.then((res) => setSchedules(res.data))
-        
-           
-          
+   
         }
         else {
             const scheduleServices= new ScheduleServices()
             const { request } = scheduleServices.getAll<Schedule[]>() 
             request.then((res) => setSchedules(res.data))
-            
-
+ 
         }
   }
     

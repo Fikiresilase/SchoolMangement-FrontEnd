@@ -10,28 +10,29 @@ export interface Course {
     grade:number
 }
 export interface Parent {
-    id: string;
+    _id: string;
     name: string;
     phone:string
 }
 export interface Student {
-    _id?:string
+    _id:string
     name: string
     email: string
     password:string
     grade:Grade;
     section: string
+    parent:string
     course: Course[]
   }
-
+ 
 class StudentService extends HttpServices {
     constructor() {
         super('/student/')
     }
 
-    getTeacherStudent (endpoint:string,grade?:any,section?:any,course?:any) {
+    getTeacherStudent (id:string,grade?:any,section?:any,course?:any) {
         const controller  = new AbortController()
-        const requestStudent = apiClient.get<Student[]>(endpoint,{params:{grade,section,course}})
+        const requestStudent = apiClient.get<Student[]>(`/student/teacher/${id}`,{params:{grade,section,course}})
         
         return {requestStudent,cancel:()=>controller.abort()}
     }

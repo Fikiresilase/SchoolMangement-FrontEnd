@@ -1,17 +1,24 @@
 import apiClient from "./api-client"
-import { Student } from "./student-service"
 interface TeacherInfo {
     firstName: string
     lastName: string
     email:string
 }
+export interface StudentForm {
+    name: string,
+    grade:number,
+    email: '',
+    section: '',
+    password: '',
+
+}
 
 class Register {
     registerTeacher(teacher:TeacherInfo) {
-        apiClient.post('/register/teacher',teacher) 
+       return apiClient.post('/register/teacher',teacher) 
     }
-    registerStudent(student:Student) {
-        apiClient.post('/register/student',{student}) 
+    registerStudent(student:StudentForm) {
+        return apiClient.post('/register/student',{student}) 
     }
 }
 

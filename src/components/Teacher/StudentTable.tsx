@@ -1,6 +1,6 @@
 import { ReactElement, useContext } from 'react'
 import Filter from '../Common/Filter'
-import StudentFilter from '../../hooks/studentFilter'
+import studentFilter from '../../contexts/studentFilter/studentFilter'
 
 interface Selected {
     grade: number | null,
@@ -17,12 +17,12 @@ interface Props {
 
 const StudentTable = ({ title,header,children }: Props) => {
 
-  const {  selected, setSelected, grades, sections, courses } = useContext(StudentFilter)
+  const {  selected, setSelected, grades, sections, courses } = useContext(studentFilter)
 
     return (
       <div className="w-full min-h-screen p-4">
            
-        <h1>{title}</h1>
+        <h1 className="text-3xl font-semibold mb-6">{title}</h1>
   
         <div className="flex gap-2 justify-center my-4">
           <Filter defaultOption={'Grade'} data={grades} setSelected={(s) => setSelected({ ...selected, grade: parseInt(s) } as Selected)} />
@@ -35,7 +35,7 @@ const StudentTable = ({ title,header,children }: Props) => {
           <thead>
             <tr className="bg-gray-100">
               {header.map((h, index) => (
-                <th key={index} className="py-3 px-4 text-sm font-semibold text-gray-600 border-b">
+                <th key={index} className="py-3 px-4 text-center text-sm font-semibold text-gray-600 border-b">
                   {h}
                 </th>
               ))}

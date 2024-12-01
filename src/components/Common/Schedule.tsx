@@ -10,26 +10,20 @@ const Schedule = ({teacherId}:Props) => {
         <h2 className="text-2xl font-semibold text-gray-700 mb-4">Weekly Schedule</h2>
         <table className="w-full table-auto">
           <thead>
-            <tr className="bg-gray-200 text-gray-700 text-left">
-              <th className="p-4 text-center">Day</th>
-              <th className="p-4 text-center">Period</th>
-              <th className="p-4 text-center">Course</th>
-              <th className="p-4 text-center">Grade</th>
-              <th className="p-4 text-center">Section</th>
-              <th className="p-4 text-center">Room</th>
+          <tr className="bg-gray-200 text-gray-700 text-left">
+            {schedules?.map(s => s.day.map(d => <th colSpan={5} className="p-4 text-center">{d.day}</th>))}
+
             </tr>
           </thead>
           <tbody>
-                      {schedules?.map((day) => (
+             {schedules?.map((day,index) => (
                 day.day.map(d=>
-              <tr key={d.day} className="border-b">
-              <td className="p-4 text-center">{d.day}</td>
+              <tr key={index} className="border-b">
               <td className="p-4 text-center">{ d.period}</td>
               <td className="p-4 text-center">{d.course}</td>
               <td className="p-4 text-center">{d.grade}</td>
               <td className="p-4 text-center">{d.section}</td>
               <td className="p-4 text-center">{ d.room}</td>
-               
               </tr>
             )))}
           </tbody>

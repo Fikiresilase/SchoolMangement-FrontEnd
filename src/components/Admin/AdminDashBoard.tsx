@@ -32,7 +32,7 @@ const AdminDashboard = () => {
 
   const grades = useGrade();
   const { students = [] } = useStudents();
-  const { teacher = [] } = useTeacher();
+  const { teachers = [] } = useTeacher();
 
   function countStudents() {
     return grades?.map((grade) => {
@@ -43,7 +43,7 @@ const AdminDashboard = () => {
   function countTeachers() {
     return grades?.map((grade) => {
     
-      return teacher.filter((t) => 
+      return teachers.filter((t) => 
         t.grade.some((g) => g.name === grade.label)
       ).length;
     }) || [];
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <Cards title='Total Students' data={students.length} handleClick={()=>navigate('manage-students')} />
-        <Cards title='Total Teachers' data={teacher.length} handleClick={() => navigate('manage-teachers')} />
+        <Cards title='Total Teachers' data={teachers.length} handleClick={() => navigate('manage-teachers')} />
         <Cards title='Total Casses' data={countClass()} handleClick={()=>navigate('registrar-page/manage-classes')} />
 
       </div>

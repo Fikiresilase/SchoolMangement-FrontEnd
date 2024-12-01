@@ -4,17 +4,17 @@ import useTeachers from '../../hooks/useTeachers';
 import TeacherService, { Teacher } from '../../services/teacher-service'
 
 const TeacherManage = () => {
-  const { teacher, setTeacher } = useTeachers();
+  const { teachers, setTeachers } = useTeachers();
   
-  const [editedTeachers, setEditedTeachers] = useState<Teacher[]>(teacher);
+  const [editedTeachers, setEditedTeachers] = useState<Teacher[]>(teachers);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedAction, setSelectedAction] = useState<'delete' | 'update' | null>(null);
   const [selectedTeacher, setSelectedTeacher] = useState<{ id: string } | null>(null);
 
   useEffect(() => {
-    setEditedTeachers(teacher);
-  }, [teacher]);
+    setEditedTeachers(teachers);
+  }, [teachers]);
 
   const handleEdit = (id: string, field: string, value: string) => {
     setEditedTeachers((prevTeachers) =>
@@ -24,23 +24,24 @@ const TeacherManage = () => {
     );
   };
 
-  const handleUpdate = (id: string) => {
-    const updatedteacher = editedTeachers.find((teacher) => teacher._id === id);
-    if (updatedteacher) {
-      setTeacher((prevTeachers) =>
-        prevTeachers.map((teacher) =>
-          teacher._id === id ? updatedteacher : teacher
+    const handleUpdate = (id: string) => {
+        const updatedteacher = editedTeachers.find((teacher) => teacher._id === id);
+        if (updatedteacher) {
+            setTeachers((prevTeachers) =>
+                prevTeachers.map((teacher) =>
+                    teacher._id === id ? updatedteacher : teacher
         )
-      );
-      setShowModal(false);
-    }
-  };
+    );
+    setShowModal(false);
+}
+TeacherService.updateOne<Teacher>(updatedteacher as Teacher) 
+};
 
   const handleDelete = (id: string) => {
     //deletes Teachers to be refact later
      TeacherService.delete(id) 
    
-    setTeacher((prevTeachers) =>
+    setTeachers((prevTeachers) =>
       prevTeachers.filter((teacher) => teacher._id !== id)
     );
     setEditedTeachers((prevTeachers) =>
@@ -60,13 +61,13 @@ const TeacherManage = () => {
       <h1 className="text-3xl font-semibold mb-6">Manage Teachers</h1>
 
       <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">teacher List</h2>
+        <h2 className="text-xl font-semibold text-gray-700 mb-4">Teacher List</h2>
 
         <table className="min-w-full bg-white border border-gray-200 shadow-md">
           <thead>
             <tr className="bg-gray-100">
               <th className="px-4 py-2 text-left">Name</th>
-              <th className="px-4 py-2 text-left">Grade</th>
+              <th className="px-4 py-2 text-left">Email</th>
               <th className="px-4 py-2 text-left">Actions</th>
             </tr>
           </thead>
@@ -87,9 +88,19 @@ const TeacherManage = () => {
                     }
                     className="w-full bg-transparent border-0 focus:outline-none"
                   />
+                    </td>
+
+                    <td className="px-4 py-2">
+                  <input
+                    type="text"
+                    value={teacher.email}
+                    onChange={(e) =>
+                      handleEdit(teacher._id as string, 'name', e.target.value)
+                    }
+                    className="w-full bg-transparent border-0 focus:outline-none"
+                  />
                 </td>
-                <td className="px-4 py-2">
-                </td>
+                
                 <td className="px-4 py-2 flex space-x-2">
                   <button
                     onClick={() => openModal(teacher._id as string, 'update')}

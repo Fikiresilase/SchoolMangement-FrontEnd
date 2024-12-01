@@ -12,28 +12,28 @@ const useStudentFilter = () => {
 
     const [selected, setSelected] = useState<Selected>()
     const teacherId = '66fbe6ae5bbf2d8c74209c41';
-    const {teacherGradeData,teacherCourseData}=useTeacher('teacher/' + teacherId)
+    const {teacherGradeData,teacherCourseData} = useTeacher(teacherId)
 
-    const { students, setStudents } = useStudents('student/teacher/' + teacherId)
+    const { students, setStudents } = useStudents( teacherId)
     const grades =teacherGradeData.map(g=>g.name)
     const sections = teacherGradeData.map(g => g.section)
     const courses = teacherCourseData.map(g =>g.course.map(c=>c.name))
     const [error, setError] = useState("");
+
     
     useEffect(() => {
-    
-      
+
         if (selected?.grade || selected?.section || selected?.course) {
         
-          const { requestStudent } = StudentService.getTeacherStudent('student/teacher/' + teacherId , selected.grade,selected.section,selected?.course)
+          const { requestStudent } = StudentService.getTeacherStudent(teacherId , (selected.grade?.toString()),selected.section,selected?.course)
           requestStudent.then(s => {
             setStudents(s.data);
           }).catch(err => setError(err))
     
         }
-        // if (selected?.course) {
-        //   setStudents(students.flatMap(student => student.course.filter(course => course.name === selected.course).map(() => student)));
-        // }
+        if (selected?.course) {
+          setStudents(students.flatMap(student => student.course.filter(course => course.name === selected.course).map(() => student)));
+        }
         
        
           

@@ -1,24 +1,29 @@
-import { useContext, useState } from "react";
-import useStudentGrade from "../../hooks/useStudentGrade";
-import { Student } from "../../services/student-service";
+import {  FormEvent, useContext, useState } from "react";
 import StudentTable from "./StudentTable";
-import StudentFilter from "../../hooks/studentFilter";
+
+import  { Student } from "../../services/student-service";
+import useStudentGrade from "../../hooks/useStudentGrade";
+import studentFilterContext from "../../contexts/studentFilter/studentFilter";
+
 const StudentsMark = () => {
   const [courseResult, setCourseResult] = useState<string>('')
-  const { students,selected} = useContext(StudentFilter)
+  const { students, selected } = useContext(studentFilterContext)
+  console.log(students)
   
-  const handleSubmit = (student: Student) => {
+  const handleSubmit = (e:FormEvent<HTMLFormElement>,student: Student) => {
    
     if (courseResult && selected?.course) {
-      useStudentGrade(student._id as string, selected.course,courseResult)
+      if(e.currentTarget)
+     useStudentGrade(student._id,selected.course,courseResult)
+      
 
     }
   }
   return (
     <StudentTable header={['Name', 'Grade', 'Course', 'Result']} title="Students Mark">
       <>
-        {students.map((s) => (
-          <tr key={s._id} className="p-2  hover:bg-gray-50 transition-colors cursor-pointer">
+        {students?.map((s) => (
+          <tr key={s._id} className="p-2 text-center hover:bg-gray-50 transition-colors cursor-pointer">
             <td className="p-2">{s.name}</td>
             <td className="p-2">{s.grade.name}</td>
             <td className="p-2">{selected?.course}</td>
@@ -26,15 +31,13 @@ const StudentsMark = () => {
               <form
                 className="flex items-center justify-center gap-2"
                 onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSubmit(s);
+                  handleSubmit(e,s);
                 }}
               >
                 <input
                   type="number"
                   min={0}
                   max={100}
-                  value={courseResult}
                   onChange={(e) => setCourseResult(e.currentTarget.value)}
                   className="w-16 p-2 text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                   placeholder="0-100"

@@ -3,13 +3,13 @@ import { Student } from "../services/student-service";
 import StudentService from '../services/student-service'
 
 
-const useStudents = (endpoint?:string) => {
+const useStudents = (teacherId?:string) => {
   const [students, setStudents] = useState<Student[]>([]);
   const [error, setError] = useState("")
   useEffect(() => {
 
-    if (endpoint) {
-      const { requestStudent } = StudentService.getTeacherStudent(endpoint as string)
+    if (teacherId) {
+      const { requestStudent } = StudentService.getTeacherStudent(teacherId)
       requestStudent.then(s => {
         setStudents(s.data);
       }).catch(err => setError(err));

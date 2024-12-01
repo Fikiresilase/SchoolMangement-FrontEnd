@@ -1,5 +1,5 @@
 import { createContext, Dispatch } from "react"
-import { Student } from "../services/student-service"
+import { Student } from "../../services/student-service"
 
 interface Selected {
     grade: number | null
@@ -19,7 +19,7 @@ export interface StudentFilterContext {
     
 }
 
-const studentFilter = createContext({} as StudentFilterContext)
+const studentFilterContext = createContext({} as StudentFilterContext)
 
-export default studentFilter
+export default studentFilterContext
 
